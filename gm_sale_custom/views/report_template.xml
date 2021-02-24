@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+
+        <!-- Inherit quotation report (from module sale) -->
+        <template id="report_invoice_inherit_demo" inherit_id="account.report_invoice_document">
+
+            <xpath expr="//table[@name='invoice_line_table']" position="after">
+                <div class="col-xs-2">
+                    <strong>Customer Note:</strong>
+                    <p t-field="o.notes_client"/>
+                </div>
+            </xpath>
+
+        </template>
+
+
+    </data>
+</odoo>

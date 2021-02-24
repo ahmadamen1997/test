@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="invoice_line_report_tree">
+            <field name="name">Invoice line Report</field>
+            <field name="model">account.invoice.line</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice Line" create="false" delete="false" duplicate="false">
+                    <field name="origin" string="Sale Order"/>
+                    <field name="product_id" string="Product"/>
+                    <field name="state"/>
+                    <field name="category"/>
+                    <field name="variant" widget="many2many_tags"/>
+                    <field name="quantity" string="Invoice Quantity"/>
+                    <field name="price" string="Invoiced Subtotal"/>
+                    <field name="delivered_quantity_new" string="Delivered Quantity"/>
+                    <field name="delivered_quantity_price_new" string="Delivered Subtotal"/>
+                    <field name="returned_quantity_new" string="Returned Quantity"/>
+                    <field name="returned_quantity_price_new" string="Returned Subtotal"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_invoice_line_report" model="ir.ui.view">
+            <field name="model">account.invoice.line</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="origin" string="Sale Order"/>
+                    <field name="product_id"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="invoice_line_report_action">
+            <field name="name">Sale Order Line Report</field>
+            <field name="res_model">account.invoice.line</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="invoice_line_report_tree"/>
+            <field name="domain">[('invoice_id.type','=','out_invoice'),('invoice_id.state','=','paid'),('origin','!=',False)]</field>
+
+
+        </record>
+
+
+        <menuitem name="Sale Order Line Report" id="invoice_line_report_menu_1_list" parent="sale.menu_sale_report"
+                  action="invoice_line_report_action"/>
+
+    </data>
+</odoo>

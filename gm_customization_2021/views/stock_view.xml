@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+        <record id="view_stock_inventory_new_customize" model="ir.ui.view">
+            <field name="name">stock.inventory</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='theoretical_qty']" position="attributes">
+                    <attribute name="sum">Total quantity</attribute>
+                    <attribute name="widget">monetary</attribute>
+                </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='product_qty']" position="attributes">
+                    <attribute name="sum">Total qty</attribute>
+                    <attribute name="widget">monetary</attribute>
+                </xpath>
+
+            </field>
+        </record>	
+        <record id="view_stock_picking_new_customize" model="ir.ui.view">
+            <field name="name">stock.picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_line_ids']/tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="sum">Total quantity</attribute>
+                    <attribute name="widget">monetary</attribute>
+                </xpath>
+            <xpath expr="//field[@name='move_lines']/tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="sum">Total qty</attribute>
+                    <attribute name="widget">monetary</attribute>
+                </xpath>
+            <xpath expr="//field[@name='move_lines']/tree/field[@name='reserved_availability']" position="attributes">
+                    <attribute name="sum">Total Reserved</attribute>
+                    <attribute name="widget">monetary</attribute>
+                </xpath>
+            <xpath expr="//field[@name='move_lines']/tree/field[@name='quantity_done']" position="attributes">
+                    <attribute name="sum">Total done</attribute>
+                    <attribute name="widget">monetary</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_vendor_customize" model="ir.ui.view">
+            <field name="name">account.invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="attributes">
+                    <attribute name="sum">Total qty</attribute>
+                    <attribute name="widget">monetary</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <template id="external_layout_clean" inherit_id="web.external_layout_clean">
+            <xpath expr="//div[hasclass('col-xs-6')]/img" position="replace">
+
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="max-width: 250px; max-height: 200px; display: block;" />
+            </xpath>
+        </template>
+
+        <template id="custom_invooo" inherit_id="account.report_invoice_document">
+            <xpath expr="//h2" position="replace">
+                <h2>
+                    <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Request</span>
+                    <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Request</span>
+                    <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Request</span>
+                    <span t-if="o.type == 'out_refund'">Credit Note</span>
+                    <span t-if="o.type == 'in_refund'">Vendor Credit Note</span>
+                    <span t-if="o.type == 'in_invoice'">Vendor Bill</span>
+                    <span t-field="o.number"/>
+                </h2>
+            </xpath>
+            <xpath expr="//address" position="after">
+                <div t-if="o.partner_id.mobile" t-field="o.partner_id.mobile"/>
+                <div t-if="o.partner_id.mobile2" t-field="o.partner_id.mobile2"/>
+            </xpath>
+            <xpath expr="//div/div[2]/div[4]" position="replace">
+                <div class="col-xs-2" t-if="o.origin">
+                    <strong>Sale Order:</strong>
+                    <p t-field="o.origin"/>
+                </div>
+                <div class="col-xs-2" t-if="o.team_id.name">
+                    <strong>Shipping Company:</strong>
+                    <p t-field="o.team_id.name"/>
+                </div>
+            </xpath>
+            <xpath expr="//div/p[1]" position="replace">
+                <p t-if="o.comment">
+                    <p>Notes</p>
+                    <span t-field="o.comment"/>
+                </p>
+
+            </xpath>
+
+            <xpath expr="//div/p[2]" position="replace">
+                <br></br>
+                <div align="right">
+                    <p id="phonex">في حالة شكوى برجاء الاتصال على رقم 01000654729</p>
+                    <p id="fbx">https://www.facebook.com/yostafandi.eg/</p>
+                </div>
+            </xpath>
+            <xpath expr="//table[1]/tr" position="replace">
+                <tr style="border-bottom:1px solid #dddddd;">
+                    <td>
+                        <strong>Total Before Discount</strong>
+                    </td>
+                    <td class="text-right">
+                        <span t-field="o.total_before_discount"
+                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                    </td>
+                </tr>
+                <tr style="border-bottom:1px solid #dddddd;">
+                    <td>
+                        <strong>Discount</strong>
+                    </td>
+                    <td class="text-right">
+                        <span t-field="o.discount"
+                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                    </td>
+                </tr>
+            </xpath>
+        </template>
+    </data>
+</odoo>

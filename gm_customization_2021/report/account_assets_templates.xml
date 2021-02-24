@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+    <!-- template use to render a Registration Badge -->
+    <template id="account_product_report_template_badge">
+        <t t-call="web.basic_layout">
+
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+   <div class="row  justify-content-center" t-if="o.barcode">
+                        <div class="text-center align-middle">
+                            <div   style="text-align:center;font-size:14px;margin-right:8px;" t-field="o.name"/>
+                            <div  style="text-align:center;font-size:12px" t-field="o.env.user.company_id"/>
+                            
+                            <img t-if="o.barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.barcode, 600, 100)" style="width:250px;height:60px;" alt="Barcode"/>
+                        <div   style="text-align:center;font-size:11px" t-field="o.lst_price"/>
+                        </div>
+                    </div>
+
+                </div>
+                <p style="page-break-after: always;"/>
+            </t>
+
+        </t>
+    </template>
+
+    <!-- template use to render a Registration Badge -->
+    <template id="account_product_report_product_badge">
+        <t t-call="web.basic_layout">
+
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+   <div class="row  justify-content-center" t-if="o.barcode">
+                        <div class="text-center align-middle">
+                            <div   style="text-align:center;font-size:14px;margin-right:8px;" t-field="o.name"/>
+                            <div  style="text-align:center;font-size:12px" t-field="o.env.user.company_id"/>
+                            
+                            <img t-if="o.barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.barcode, 600, 100)" style="width:250px;height:60px;" alt="Barcode"/>
+                        <div   style="text-align:center;font-size:11px" t-field="o.lst_price"/>
+                        </div>
+                    </div>
+
+                </div>
+                <p style="page-break-after: always;"/>
+            </t>
+
+        </t>
+    </template>
+
+
+</odoo>

@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="sales_report_companyshipping" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//div[@t-if='doc.user_id.name']/strong" position="replace">
+                <strong>Shipping Company:</strong>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+        <record id="view_partner_mobile_search" model="ir.ui.view">
+            <field name="name">res.partner.search.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="mobile"/>
+                    <field name="mobile2"/>
+                </xpath>
+                <xpath expr="//filter[@name='salesperson']" position="replace">
+                    <filter name="salesperson" string="Payment Method" domain="[]" context="{'group_by' : 'user_id'}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="view_partner_mobile_form" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="before">
+                    <field name="mobile2"/>
+                </xpath>
+                <xpath expr="//field[@name='mobile']" position="replace">
+                    <field name="mobile" string="mob"/>
+                </xpath>
+                <xpath expr="//field[@name='street']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='street2']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='city']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_sale_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="number_of_orders"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_sale_order_search" model="ir.ui.view">
+            <field name="name">sale.order.search.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_sale"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='my_sale_orders_filter']" position="before">
+                    <field name="partner_id" filter_domain="[('partner_id.mobile','ilike',self)]" string="Mobile1"/>
+                    <field name="partner_id" filter_domain="[('partner_id.mobile2','ilike',self)]" string="Mobile2"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_form" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='other_info']" position="after">
+                    <page name="notes" string="Notes">
+                        <field name="notes_client"/>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Payment Method</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

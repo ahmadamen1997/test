@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <record id="view_res_partner_filter_customize" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="mobile" />
+
+                </xpath>
+            </field>
+        </record>
+<!--         <record id="view_res_partner_mob_customize" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="sms.partner_form_send_sms_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mobile']" position="replace">
+                   <attributes name="invisible">1</attributes>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record id="view_res_partner_customize" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='child_ids']" position="attributes">
+                <attribute name="style">background-color: #d9534f</attribute>
+                </xpath>
+                <xpath expr="//field[@name='mobile']" position="replace">
+                    <!--<attributes name="invisible">1</attributes>-->
+                </xpath>
+<xpath expr="//group/group/div" position="after">
+                    <field name="mobile1_boolean" invisible="1"/>
+                    <field name="mobile2_boolean" invisible="1"/>
+                    <field name="mobile" required="1" style="color:red ! important;" attrs="{'invisible': [('mobile1_boolean','=',False)]}"/>
+                    <field name="mobile" required="1"  attrs="{'invisible': [('mobile1_boolean','=',True)]}"/>
+                    <field name="mobile2"  style="color:red ! important;" attrs="{'invisible': [('mobile2_boolean','=',False)]}"/>
+                    <field name="mobile2"   attrs="{'invisible': [('mobile2_boolean','=',True)]}"/>
+
+
+                </xpath>
+                <xpath expr="//field[@name='street']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='city']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='zip']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

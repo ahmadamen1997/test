@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <record id="view_stock_picking_customize" model="ir.ui.view">
+            <field name="name">stock.picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                                    <field name="returned" attrs="{'invisible': [('returned','=',False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="qty_total" invisible="1"/>
+                    <field name="shipping_company"/>
+                    <field name="mobile" invisible="1"/>
+                    <field name="city" invisible="1"/>
+                    <field name="address" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_stock_picking_tree_customize" model="ir.ui.view">
+            <field name="name">stock.picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="before">
+                    <field name="qty_done" sum="Total Done Quantity" widget="monetary"/>
+                    <field name="qty_total" sum="Total products"/>
+                    <field name="mobile"/>
+                    <field name="city" string="City"/>
+                    <field name="address"/>
+
+
+                </xpath>
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="total_price"/>
+                    <field name="exported_date"/>
+                    <field name="exported"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

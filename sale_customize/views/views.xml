@@ -1,0 +1,133 @@
+<odoo>
+    <data>
+        <record id="view_sale_order_sour_customize" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_crm.sale_view_inherit123"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='source_id']" position="replace">
+                    <!--<attributes name="invisible">1</attributes>-->
+                </xpath>
+            </field>
+        </record>
+        <record id="view_sale_order_customize" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='discount']" position="after">
+                    <field name="discount_amount" groups="sale.group_discount_per_so_line"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="sale_counter"/>
+                    <field name="waiting_list"/>
+                    <field name="user_id"/>
+                    <field name="partner_id_mobile" invisible="1"/>
+                    <field name="order_status"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <!--<field name="city_customer"/>-->
+                    <field name="source_id"/>
+                    <field name="state_customer"/>
+                    <field name="team_id" string="Shipping Company"/>
+
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='validity_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='sales_person']/field[@name='team_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='sales_person']/field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_sale_order_list_customize" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="replace">
+                    <field name="waiting_list"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_purchase_order_customize" model="ir.ui.view">
+            <field name="name">purchase.order</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_ref']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_sale_order_button_customize" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_management.sale_order_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[1]" position="replace">
+                    <button name="action_invoice_create" string="Create Invoice"
+                            type="object" class="btn-primary"
+                            attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"/>
+                </xpath>
+            </field>
+        </record>
+        <!--<record id="view_sale_order_report_filter_customize" model="ir.ui.view">-->
+        <!--<field name="name">sale.report</field>-->
+        <!--<field name="model">sale.report</field>-->
+        <!--<field name="inherit_id" ref="sale.view_order_product_search"/>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<xpath expr="//group/filter[1]" position="replace">-->
+        <!--<filter string="Shipping Company" name="User" context="{'group_by':'user_id'}"/>-->
+        <!--</xpath>-->
+        <!--</field>-->
+        <!--</record>-->
+        <record id="view_inventory_customize" model="ir.ui.view">
+            <field name="name">stock.picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="show_validate" invisible="1"/>
+                        <field name="products_id" string="products" widget="many2many_tags" />
+			<button name="button_validate" attrs="{'invisible': [('show_validate', '=', False)]}"
+                            string="Validate" groups="stock.group_stock_user" type="object" class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_sale_order_filter_customize" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="partner_id_mobile" string="Customer Mobile"
+                           filter_domain="[('partner_id_mobile','ilike', self)]"/>
+                    <field name="partner_id_mobile2" string="Customer Mobile 2"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.menu" id="sale.sales_team_config">
+            <field name="name">Shipping Company</field>
+        </record>
+        <record model="ir.ui.menu" id="sale.report_sales_team">
+            <field name="name">Shipping Company</field>
+        </record>
+        <record model="ir.ui.menu" id="crm.sales_team_menu_report_crm">
+            <field name="name">Shipping Company</field>
+        </record>
+        <record model="ir.ui.menu" id="sale.report_all_channels_sales">
+            <field name="name">All Shipping Company Orders</field>
+        </record>
+    </data>
+</odoo>
